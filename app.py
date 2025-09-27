@@ -1,8 +1,6 @@
 # app.py
 import streamlit as st
-from repo_analyzer import clone_repo
-
-from repo_analyzer import clone_repo, process_and_embed_repo
+from repo_analyzer import clone_repo, process_and_embed_repo, generate_answer
 
 st.set_page_config(layout="wide")
 st.title("Code Insights Assistant 🧠")
@@ -46,3 +44,17 @@ if st.button("Analyze Repository"):
                     st.error(f"Error processing repository: {e}")
     else:
         st.warning("Please enter a GitHub repository URL.")
+
+# Add the Q&A section, which appears only after the repo is processed
+if 'vector_store' in st.session_state:
+    st.header("Ask Questions About the Codebase")
+    user_query = st.text_input("e.g., 'How is the `st.button` function implemented?'")
+
+    if st.button("Get Answer"):
+        if user_query:
+            with st.spinner("Searching the codebase and generating an answer..."):
+                vector_store = st.session_state.vector_store
+                answer = generate_answer(vector_store, user_query)
+                st.markdown(answer)
+        else:
+            st.warning("Please enter a question.")
