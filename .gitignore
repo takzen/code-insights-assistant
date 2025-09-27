@@ -1,0 +1,25 @@
+# Environment variables - NEVER commit secrets
+.env
+
+# Virtual environment folders
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary repository clones - CRITICAL for this project
+# This ensures the 'temp_repo' folder created by the app is not committed
+temp_repo/
+
+# IDE and editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS specific files
+.DS_Store
